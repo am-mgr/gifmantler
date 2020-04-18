@@ -11,7 +11,11 @@ func main() {
 		return
 	}
 
-	arg := os.Args[1]
+	filePath := os.Args[1]
+	if !IsGIF(filePath) {
+		fmt.Println("Provided file is not a GIF")
+		return
+	}
 
-	fmt.Println(arg)
+	fmt.Println(filePath)
 }
