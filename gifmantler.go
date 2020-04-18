@@ -12,7 +12,6 @@ import (
 //ProcessGIF will unpack the frames to individual images
 func ProcessGIF(filePath string) {
 	file, err := os.Open(filePath)
-	absFilePath := GetRootDir(filePath)
 	defer file.Close()
 	if err != nil {
 		fmt.Println("Error reading file", filePath)
@@ -22,7 +21,7 @@ func ProcessGIF(filePath string) {
 		fmt.Println("Could not decode GIF")
 	}
 	for id, img := range gifRef.Image {
-		outPath := path.Join(OutputLocation(absFilePath), strconv.Itoa(id)) + ".png"
+		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id)) + ".png"
 		fs, err := os.OpenFile(outPath, os.O_CREATE, 0766)
 		if err != nil {
 			fmt.Println(err)
