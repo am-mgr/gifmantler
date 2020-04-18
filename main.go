@@ -17,5 +17,6 @@ func main() {
 		return
 	}
 
-	fmt.Println(filePath)
+	ProcessGIF(filePath)
+
 }
