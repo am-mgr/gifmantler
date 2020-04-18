@@ -21,7 +21,7 @@ func ProcessGIF(filePath string) {
 		fmt.Println("Could not decode GIF")
 	}
 	for id, img := range gifRef.Image {
-		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id)) + ".png"
+		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id + 1)) + ".png"
 		fs, err := os.OpenFile(outPath, os.O_CREATE, 0766)
 		if err != nil {
 			fmt.Println(err)
