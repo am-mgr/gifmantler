@@ -27,13 +27,13 @@ func ProcessGIF(filePath string) {
 	var wg sync.WaitGroup
 	for id, img := range gifRef.Image {
 		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id+1)) + ".png"
+		wg.Add(1)
 		go writeImage(outPath, img, &wg)
 	}
 	wg.Wait()
 }
 
 func writeImage(imgPath string, img image.Image, wg *sync.WaitGroup) {
-	wg.Add(1)
 	defer wg.Done()
 
 	fs, err := os.OpenFile(imgPath, os.O_CREATE, 0766)
