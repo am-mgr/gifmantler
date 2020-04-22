@@ -17,13 +17,13 @@ func main() {
 
 	if len(os.Args) < 2 {
 		fmt.Println("GIF file not provided")
-		return
+		os.Exit(1)
 	}
 
 	filePath := os.Args[1]
 	if !IsGIF(filePath) {
 		fmt.Println("Provided file is not a GIF")
-		return
+		os.Exit(1)
 	}
 
 	ProcessGIF(filePath)

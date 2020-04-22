@@ -13,13 +13,13 @@ import (
 
 //ProcessGIF will unpack the frames to individual images
 func ProcessGIF(filePath string) {
-	file, err := os.Open(filePath)
-	defer file.Close()
+	gifFile, err := os.Open(filePath)
+	defer gifFile.Close()
 	if err != nil {
 		fmt.Println("Error reading file", filePath)
 		return
 	}
-	gifRef, err := gif.DecodeAll(file)
+	gifRef, err := gif.DecodeAll(gifFile)
 	if err != nil {
 		fmt.Println("Could not decode GIF")
 		return
