@@ -18,7 +18,7 @@ steps:
     command: 'get'
     arguments: '-d'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
-- task: GoTest@0
+- task: Go@0
   inputs:
     command: 'test'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
