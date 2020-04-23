@@ -18,6 +18,10 @@ steps:
     command: 'get'
     arguments: '-d'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
+- task: GoTest@0
+  inputs:
+    command: 'test'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
 - task: Go@0
   inputs:
     command: 'build'
