@@ -11,7 +11,7 @@ func main() {
 	version := flag.Bool("version", false, "Prints tool version")
 	isPng := flag.Bool("png", false, "Output as png images")
 	isJpeg := flag.Bool("jpeg", false, "Iutput as jpeg images")
-	jpegQuality := flag.Int("jpeg-quality", 100, "Quality of jpeg images ranging 1 to 100")
+	jpegQuality := flag.Int("jpeg-quality", 100, "Quality of jpeg images ranging 1 to 100. Higher number, better quality")
 	sourceGif := flag.String("gif", "", "The source GIF")
 
 	flag.Parse()
@@ -32,7 +32,7 @@ func main() {
 	}
 
 	if (*jpegQuality < 1 || *jpegQuality > 100) && *isJpeg {
-		fmt.Println("Jpeg quality set as", jpegQuality, ". Allowed values range 1-100")
+		fmt.Println("Jpeg quality set as", *jpegQuality, ". Allowed values range 1-100")
 		os.Exit(1)
 	}
 
