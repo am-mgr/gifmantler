@@ -9,7 +9,7 @@
             "command": "go build",
             "args": [
                 "-o",
-                "gitmantler.exe"
+                "gifmantler.exe"
             ]
         }
     ]
