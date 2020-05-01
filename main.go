@@ -30,6 +30,11 @@ func main() {
 		os.Exit(1)
 	}
 
+	if (*jpegQuality < 1 || *jpegQuality > 100) && *isJpeg {
+		fmt.Println("Jpeg quality set as", jpegQuality, ". Allowed values range 1-100")
+		os.Exit(1)
+	}
+
 	ProcessGIF(filePath, &Parameters{
 		IsPNG:       *isPng,
 		IsJPEG:      *isJpeg,
