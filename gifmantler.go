@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/gif"
 	"image/png"
+	"io"
 	"os"
 	"path"
 	"strconv"
@@ -28,12 +29,12 @@ func ProcessGIF(filePath string) {
 	for id, img := range gifRef.Image {
 		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id+1)) + ".png"
 		wg.Add(1)
-		go writeImage(outPath, img, &wg)
+		go writeImage(outPath, img, pngWriter(), &wg)
 	}
 	wg.Wait()
 }
 
-func writeImage(imgPath string, img image.Image, wg *sync.WaitGroup) {
+func writeImage(imgPath string, img image.Image, imgWriter func(writer io.Writer, img image.Image), wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	fs, err := os.OpenFile(imgPath, os.O_CREATE, 0766)
@@ -41,5 +42,11 @@ func writeImage(imgPath string, img image.Image, wg *sync.WaitGroup) {
 		fmt.Println(err)
 	}
 	defer fs.Close()
-	png.Encode(fs, img)
+	imgWriter(fs, img)
+}
+
+func pngWriter() func(writer io.Writer, img image.Image) {
+	return func(writer io.Writer, img image.Image) {
+		png.Encode(writer, img)
+	}
 }
