@@ -10,7 +10,7 @@ func main() {
 
 	version := flag.Bool("version", false, "Prints tool version")
 	isPng := flag.Bool("png", false, "Output as png images")
-	isJpeg := flag.Bool("jpeg", false, "Iutput as jpeg images")
+	isJpeg := flag.Bool("jpeg", false, "Output as jpeg images")
 	jpegQuality := flag.Int("jpeg-quality", 100, "Quality of jpeg images ranging 1 to 100. Higher number, better quality")
 	sourceGif := flag.String("gif", "", "The source GIF")
 
