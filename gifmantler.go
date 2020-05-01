@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	"image/gif"
+	"image/jpeg"
 	"image/png"
 	"io"
 	"os"
@@ -27,9 +28,11 @@ func ProcessGIF(filePath string) {
 	}
 	var wg sync.WaitGroup
 	for id, img := range gifRef.Image {
-		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id+1)) + ".png"
-		wg.Add(1)
-		go writeImage(outPath, img, pngWriter(), &wg)
+		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id+1))
+		wg.Add(2)
+		go writeImage(outPath+".png", img, pngWriter(), &wg)
+		go writeImage(outPath+".jpeg", img, jpegWriter(100), &wg)
+
 	}
 	wg.Wait()
 }
@@ -48,5 +51,11 @@ func writeImage(imgPath string, img image.Image, imgWriter func(writer io.Writer
 func pngWriter() func(writer io.Writer, img image.Image) {
 	return func(writer io.Writer, img image.Image) {
 		png.Encode(writer, img)
+	}
+}
+
+func jpegWriter(quality int) func(writer io.Writer, img image.Image) {
+	return func(writer io.Writer, img image.Image) {
+		jpeg.Encode(writer, img, &jpeg.Options{Quality: quality})
 	}
 }
