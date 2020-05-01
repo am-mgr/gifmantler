@@ -36,9 +36,14 @@ func ProcessGIF(filePath string, params *Parameters) {
 	var wg sync.WaitGroup
 	for id, img := range gifRef.Image {
 		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id+1))
-		wg.Add(2)
-		go writeImage(outPath+".png", img, pngWriter(), &wg)
-		go writeImage(outPath+".jpeg", img, jpegWriter(params.JpegQuality), &wg)
+		if params.IsPNG {
+			wg.Add(1)
+			go writeImage(outPath+".png", img, pngWriter(), &wg)
+		}
+		if params.IsJPEG {
+			wg.Add(1)
+			go writeImage(outPath+".jpeg", img, jpegWriter(params.JpegQuality), &wg)
+		}
 
 	}
 	wg.Wait()
