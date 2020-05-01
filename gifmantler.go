@@ -13,8 +13,15 @@ import (
 	"sync"
 )
 
+//Parameters for processing GIF
+type Parameters struct {
+	IsPNG       bool
+	IsJPEG      bool
+	JpegQuality int
+}
+
 //ProcessGIF will unpack the frames to individual images
-func ProcessGIF(filePath string) {
+func ProcessGIF(filePath string, params *Parameters) {
 	gifFile, err := os.Open(filePath)
 	defer gifFile.Close()
 	if err != nil {
@@ -31,7 +38,7 @@ func ProcessGIF(filePath string) {
 		outPath := path.Join(GetOutputPath(filePath), strconv.Itoa(id+1))
 		wg.Add(2)
 		go writeImage(outPath+".png", img, pngWriter(), &wg)
-		go writeImage(outPath+".jpeg", img, jpegWriter(100), &wg)
+		go writeImage(outPath+".jpeg", img, jpegWriter(params.JpegQuality), &wg)
 
 	}
 	wg.Wait()

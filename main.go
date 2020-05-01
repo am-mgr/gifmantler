@@ -9,6 +9,10 @@ import (
 func main() {
 
 	version := flag.Bool("version", false, "prints tool version")
+	isPng := flag.Bool("png", false, "output as png images")
+	isJpeg := flag.Bool("jpeg", false, "output as jpeg images")
+	jpegQuality := flag.Int("jpeg-quality", 100, "quality of jpeg images ranging 1 to 100")
+
 	flag.Parse()
 	if *version {
 		fmt.Println(Version)
@@ -26,6 +30,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	ProcessGIF(filePath)
+	ProcessGIF(filePath, &Parameters{
+		IsPNG:       *isPng,
+		IsJPEG:      *isJpeg,
+		JpegQuality: *jpegQuality,
+	})
 
 }
