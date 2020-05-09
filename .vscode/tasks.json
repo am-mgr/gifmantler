@@ -6,11 +6,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "go build",
-            "args": [
-                "-o",
-                "gifmantler.exe"
-            ]
+            "command": "build.bat"
         }
     ]
 }
