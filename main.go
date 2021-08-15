@@ -36,6 +36,11 @@ func main() {
 		os.Exit(1)
 	}
 
+	if !*isPng && !*isJpeg {
+		fmt.Println("Image format not provided. Choose either -png or -jpeg")
+		os.Exit(1)
+	}
+
 	ProcessGIF(filePath, &Parameters{
 		IsPNG:       *isPng,
 		IsJPEG:      *isJpeg,
